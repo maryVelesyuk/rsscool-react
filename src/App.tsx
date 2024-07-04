@@ -1,35 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Component, ChangeEvent, MouseEvent } from 'react'
+import PlanetsService from './services/PlanetsService'
 import './App.css'
+import PlanetCard from './components/PlanetCard/PlanetCard'
+import { Planet } from './components/PlanetCard/PlanetCard.model'
 
-function App() {
-  const [count, setCount] = useState(0)
+interface IApp {
+  inputValue: string
+  planetsList: Planet[]
+  loading: boolean
+  error: boolean
+}
+class App extends Component<{}, IApp> {
+  constructor(props: {}) {
+    super(props)
+    this.state = {
+      inputValue: '',
+      planetsList: [],
+      loading: false,
+      error: false,
+    }
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  planetsService = new PlanetsService()
+
+  componentDidMount() {
+    this.setState({
+      loading: true,
+    })
+    this.planetsService
+      .getAllPlanets()
+      .then((data) =>
+        this.setState({
+          planetsList: [...data.results],
+          loading: false,
+          error: false,
+        })
+      )
+      .catch(this.onError)
+  }
+
+  onError = () => {
+    this.setState({
+      error: true,
+      loading: false,
+    })
+  }
+
+  handleChange(event: ChangeEvent<HTMLInputElement>) {
+    this.setState({ inputValue: event.target.value })
+  }
+
+  handleSubmit(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+  }
+
+  render() {
+    return (
+      <div className="app">
+        <section className="search">
+          <input
+            className="search-input"
+            type="text"
+            placeholder="Search..."
+            value={this.state.inputValue}
+            onChange={this.handleChange}
+          />
+          <button className="search-button" onClick={this.handleSubmit}>
+            Search
+          </button>
+        </section>
+        <section className="content">
+          {this.state.planetsList.map((planet) => <PlanetCard planetInfo={planet} />)}
+        </section>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    )
+  }
 }
 
 export default App
