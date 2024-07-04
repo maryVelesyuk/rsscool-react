@@ -4,14 +4,14 @@ import './App.css'
 import PlanetCard from './components/PlanetCard/PlanetCard'
 import { Planet } from './components/PlanetCard/PlanetCard.model'
 
-interface IApp {
+interface AppState {
   inputValue: string
   planetsList: Planet[]
   loading: boolean
   error: boolean
 }
-class App extends Component<{}, IApp> {
-  constructor(props: {}) {
+class App extends Component<Record<string, never>, AppState> {
+  constructor(props: Record<string, never>) {
     super(props)
     this.state = {
       inputValue: '',
@@ -73,7 +73,9 @@ class App extends Component<{}, IApp> {
           </button>
         </section>
         <section className="content">
-          {this.state.planetsList.map((planet) => <PlanetCard planetInfo={planet} />)}
+          {this.state.planetsList.map((planet) => (
+            <PlanetCard planetInfo={planet} />
+          ))}
         </section>
       </div>
     )

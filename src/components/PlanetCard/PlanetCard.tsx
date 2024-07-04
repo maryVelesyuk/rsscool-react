@@ -9,7 +9,7 @@ interface IPlanetCard {
 export default class PlanetCard extends Component<IPlanetCard> {
   render() {
     const { name, rotation_period, diameter, climate, gravity } =
-      this.props.planetInfo;
+      this.props.planetInfo
     return (
       <div className="card">
         <h3 className="card-title">Planet: {name}</h3>
