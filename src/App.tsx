@@ -1,6 +1,7 @@
 import { Component, ChangeEvent, MouseEvent } from 'react'
 import PlanetsService from './services/PlanetsService'
 import ContentSection from './components/ContentSection/ContentSection'
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { Planet } from './components/PlanetCard/PlanetCard.model'
 import './App.css'
 
@@ -79,9 +80,10 @@ class App extends Component<Record<string, never>, AppState> {
   }
 
   render() {
-    const {inputValue, loading, planetsList} = this.state;
+    const {inputValue, loading, error, planetsList} = this.state;
 
     return (
+      
       <div className="app">
         <section className="search">
           <input
@@ -95,7 +97,9 @@ class App extends Component<Record<string, never>, AppState> {
             Search
           </button>
         </section>
-        <ContentSection loading={loading} planets={planetsList} />
+        <ErrorBoundary>
+          <ContentSection loading={loading} error={error} planets={planetsList} />
+        </ErrorBoundary>
       </div>
     )
   }

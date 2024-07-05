@@ -5,12 +5,16 @@ import './ContentSection.css'
 
 interface ContentSectionProps {
   loading: boolean;
+  error: boolean;
   planets: Planet[];
 }
 
 export default class ContentSection extends Component<ContentSectionProps> {
   render() {
-    const { loading, planets } = this.props;
+    const { loading, error, planets } = this.props;
+    if (error) {
+      throw new Error('I crashed!');
+    }
 
     return (
       <section className="content">
