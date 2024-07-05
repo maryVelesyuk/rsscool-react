@@ -1,0 +1,5 @@
+.content-body {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
+}

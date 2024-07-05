@@ -1,15 +1,17 @@
 import { Component, ChangeEvent, MouseEvent } from 'react'
 import PlanetsService from './services/PlanetsService'
-import './App.css'
-import PlanetCard from './components/PlanetCard/PlanetCard'
+import ContentSection from './components/ContentSection/ContentSection'
 import { Planet } from './components/PlanetCard/PlanetCard.model'
+import './App.css'
 
 interface AppState {
-  inputValue: string
-  planetsList: Planet[]
-  loading: boolean
-  error: boolean
+  inputValue: string;
+  planetsList: Planet[];
+  loading: boolean;
+  error: boolean;
 }
+
+const LAST_API_CALL = 'lastApiCall'
 class App extends Component<Record<string, never>, AppState> {
   constructor(props: Record<string, never>) {
     super(props)
@@ -27,19 +29,33 @@ class App extends Component<Record<string, never>, AppState> {
   planetsService = new PlanetsService()
 
   componentDidMount() {
+    const dataFromStorage = localStorage.getItem(LAST_API_CALL)
+    if(dataFromStorage){
+      this.setState({
+        planetsList: JSON.parse(dataFromStorage)
+      })
+    } else {
+    this.onLoading()  
+    this.planetsService
+      .getAllPlanets()
+      .then(this.onDataLoaded)
+      .catch(this.onError)
+    }
+  }
+
+  onDataLoaded = (data: Planet[]) => {
+    this.setState({
+      planetsList: [...data],
+      loading: false,
+      error: false,
+    })
+    localStorage.setItem(LAST_API_CALL, JSON.stringify(data))
+  }
+
+  onLoading = () => {
     this.setState({
       loading: true,
     })
-    this.planetsService
-      .getAllPlanets()
-      .then((data) =>
-        this.setState({
-          planetsList: [...data.results],
-          loading: false,
-          error: false,
-        })
-      )
-      .catch(this.onError)
   }
 
   onError = () => {
@@ -55,9 +71,16 @@ class App extends Component<Record<string, never>, AppState> {
 
   handleSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    this.onLoading()  
+    this.planetsService
+      .getSearchResult(this.state.inputValue)
+      .then(this.onDataLoaded)
+      .catch(this.onError)
   }
 
   render() {
+    const {inputValue, loading, planetsList} = this.state;
+
     return (
       <div className="app">
         <section className="search">
@@ -65,18 +88,14 @@ class App extends Component<Record<string, never>, AppState> {
             className="search-input"
             type="text"
             placeholder="Search..."
-            value={this.state.inputValue}
+            value={inputValue}
             onChange={this.handleChange}
           />
           <button className="search-button" onClick={this.handleSubmit}>
             Search
           </button>
         </section>
-        <section className="content">
-          {this.state.planetsList.map((planet) => (
-            <PlanetCard planetInfo={planet} />
-          ))}
-        </section>
+        <ContentSection loading={loading} planets={planetsList} />
       </div>
     )
   }

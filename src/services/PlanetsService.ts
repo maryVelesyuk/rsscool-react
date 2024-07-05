@@ -11,12 +11,13 @@ export default class PlanetsService {
   }
 
   getAllPlanets = async () => {
-    return await this.getResourse(`${this._url}/?page=1`)
+    const res = await this.getResourse(`${this._url}/?page=1`)
+    return res.results
   }
 
   getSearchResult = async (planetName: string) => {
     const searchParam = planetName.trim()
     const res = await this.getResourse(`${this._url}/?search=${searchParam}`)
-    return res.data.results
+    return res.results
   }
 }
