@@ -1,15 +1,15 @@
-import { Component } from 'react'
-import './PlanetCard.css'
-import { Planet } from './PlanetCard.model'
+import { Component } from "react";
+import "./PlanetCard.css";
+import { Planet } from "./PlanetCard.model";
 
 interface IPlanetCard {
-  planetInfo: Planet
+  planetInfo: Planet;
 }
 
 export default class PlanetCard extends Component<IPlanetCard> {
   render() {
     const { name, rotation_period, diameter, climate, gravity } =
-      this.props.planetInfo
+      this.props.planetInfo;
     return (
       <div className="card">
         <h3 className="card-title">Planet: {name}</h3>
@@ -18,6 +18,6 @@ export default class PlanetCard extends Component<IPlanetCard> {
         <p className="card-info">Climate: {climate}</p>
         <p className="card-info">Gravity: {gravity}</p>
       </div>
-    )
+    );
   }
 }

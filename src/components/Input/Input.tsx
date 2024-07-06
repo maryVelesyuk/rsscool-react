@@ -1,14 +1,14 @@
-import { ChangeEvent, Component } from 'react'
-import './Input.css'
+import { ChangeEvent, Component } from "react";
+import "./Input.css";
 
 interface InputProps {
-  value: string
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void
+  value: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default class Input extends Component<InputProps> {
   render() {
-    const { value, onChange } = this.props
+    const { value, onChange } = this.props;
 
     return (
       <input
@@ -18,6 +18,6 @@ export default class Input extends Component<InputProps> {
         value={value}
         onChange={onChange}
       />
-    )
+    );
   }
 }

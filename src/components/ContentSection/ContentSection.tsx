@@ -1,20 +1,20 @@
-import { Component } from 'react'
-import { Planet } from '../PlanetCard/PlanetCard.model'
-import PlanetCard from '../PlanetCard/PlanetCard'
-import './ContentSection.css'
+import { Component } from "react";
+import { Planet } from "../PlanetCard/PlanetCard.model";
+import PlanetCard from "../PlanetCard/PlanetCard";
+import "./ContentSection.css";
 
 interface ContentSectionProps {
-  loading: boolean
-  error: boolean
-  planets: Planet[]
-  searchStr: string
+  loading: boolean;
+  error: boolean;
+  planets: Planet[];
+  searchStr: string;
 }
 
 export default class ContentSection extends Component<ContentSectionProps> {
   render() {
-    const { loading, error, planets, searchStr } = this.props
+    const { loading, error, planets, searchStr } = this.props;
     if (error) {
-      throw new Error('Something went wrong!')
+      throw new Error("Something went wrong!");
     }
 
     const searchResult = planets.length ? (
@@ -23,7 +23,7 @@ export default class ContentSection extends Component<ContentSectionProps> {
       ))
     ) : (
       <p>No result found for the query "{searchStr}"</p>
-    )
+    );
 
     return (
       <section className="content">
@@ -35,6 +35,6 @@ export default class ContentSection extends Component<ContentSectionProps> {
           {loading ? <p>Loading...</p> : searchResult}
         </div>
       </section>
-    )
+    );
   }
 }
