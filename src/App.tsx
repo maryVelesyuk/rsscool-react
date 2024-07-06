@@ -3,16 +3,20 @@ import PlanetsService from './services/PlanetsService'
 import ContentSection from './components/ContentSection/ContentSection'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { Planet } from './components/PlanetCard/PlanetCard.model'
+import Input from './components/Input/Input'
 import './App.css'
+import Button from './components/Button/Button'
 
 interface AppState {
-  inputValue: string;
-  planetsList: Planet[];
-  loading: boolean;
-  error: boolean;
+  inputValue: string
+  planetsList: Planet[]
+  loading: boolean
+  error: boolean
+  searchStr: string
 }
 
-const LAST_API_CALL = 'lastApiCall'
+const LAST_API_CALL_DATA = 'lastApiCall'
+const SEARCH_STR = 'searchStr'
 class App extends Component<Record<string, never>, AppState> {
   constructor(props: Record<string, never>) {
     super(props)
@@ -21,6 +25,7 @@ class App extends Component<Record<string, never>, AppState> {
       planetsList: [],
       loading: false,
       error: false,
+      searchStr: '',
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -30,17 +35,20 @@ class App extends Component<Record<string, never>, AppState> {
   planetsService = new PlanetsService()
 
   componentDidMount() {
-    const dataFromStorage = localStorage.getItem(LAST_API_CALL)
-    if(dataFromStorage){
+    const planetsFromStorage = localStorage.getItem(LAST_API_CALL_DATA)
+    const searchStrFromStorage = localStorage.getItem(SEARCH_STR)
+
+    if (planetsFromStorage && searchStrFromStorage) {
       this.setState({
-        planetsList: JSON.parse(dataFromStorage)
+        planetsList: JSON.parse(planetsFromStorage),
+        searchStr: JSON.parse(searchStrFromStorage),
       })
     } else {
-    this.onLoading()  
-    this.planetsService
-      .getAllPlanets()
-      .then(this.onDataLoaded)
-      .catch(this.onError)
+      this.onLoading()
+      this.planetsService
+        .getAllPlanets()
+        .then(this.onDataLoaded)
+        .catch(this.onError)
     }
   }
 
@@ -50,7 +58,8 @@ class App extends Component<Record<string, never>, AppState> {
       loading: false,
       error: false,
     })
-    localStorage.setItem(LAST_API_CALL, JSON.stringify(data))
+    localStorage.setItem(LAST_API_CALL_DATA, JSON.stringify(data))
+    localStorage.setItem(SEARCH_STR, JSON.stringify(this.state.searchStr))
   }
 
   onLoading = () => {
@@ -72,7 +81,8 @@ class App extends Component<Record<string, never>, AppState> {
 
   handleSubmit(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    this.onLoading()  
+    this.onLoading()
+    this.setState({ searchStr: this.state.inputValue })
     this.planetsService
       .getSearchResult(this.state.inputValue)
       .then(this.onDataLoaded)
@@ -80,25 +90,21 @@ class App extends Component<Record<string, never>, AppState> {
   }
 
   render() {
-    const {inputValue, loading, error, planetsList} = this.state;
+    const { inputValue, loading, error, planetsList, searchStr } = this.state
 
     return (
-      
       <div className="app">
         <section className="search">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search..."
-            value={inputValue}
-            onChange={this.handleChange}
-          />
-          <button className="search-button" onClick={this.handleSubmit}>
-            Search
-          </button>
+          <Input value={inputValue} onChange={this.handleChange} />
+          <Button onClick={this.handleSubmit} text="Search" />
         </section>
         <ErrorBoundary>
-          <ContentSection loading={loading} error={error} planets={planetsList} />
+          <ContentSection
+            loading={loading}
+            error={error}
+            planets={planetsList}
+            searchStr={searchStr}
+          />
         </ErrorBoundary>
       </div>
     )

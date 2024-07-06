@@ -1,5 +1,5 @@
 export default class PlanetsService {
-  _url = 'https://swapi.dev/api/planets1'
+  _url = 'https://swapi.dev/api/planets'
   _basePage = 1
 
   getResourse = async (url: string) => {

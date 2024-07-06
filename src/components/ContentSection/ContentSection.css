@@ -3,3 +3,6 @@
   gap: 50px;
   flex-wrap: wrap;
 }
+.search-title {
+  margin-bottom: 20px;
+}

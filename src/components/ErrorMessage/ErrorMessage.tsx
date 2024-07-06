@@ -1,14 +1,8 @@
-import img from "../../assets/error.gif";
+import img from '../../assets/error.gif'
 import './ErrorMessage.css'
 
 const ErrorMessage = () => {
-  return (
-    <img
-      src={img}
-      alt="error"
-      className="error"
-    />
-  );
-};
+  return <img src={img} alt="error" className="error" />
+}
 
-export default ErrorMessage;
+export default ErrorMessage
