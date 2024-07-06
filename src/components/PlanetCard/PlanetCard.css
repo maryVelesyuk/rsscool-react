@@ -1,0 +1,8 @@
+.card {
+  width: 250px;
+  border: 1px solid gray;
+  padding: 10px;
+}
+.card-title {
+  font-size: 18px;
+}
