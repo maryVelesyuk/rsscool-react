@@ -16,5 +16,25 @@ module.exports = {
     ],
     "react-compiler/react-compiler": "error",
     "@typescript-eslint/no-explicit-any": "error",
+    "max-len": [
+      "error",
+      {
+        code: 80,
+        ignoreComments: true,
+        ignoreUrls: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      },
+    ],
+    "semi": "error",
+    "arrow-spacing": [
+      "error",
+      {
+        before: true,
+        after: true,
+      },
+    ],
+    "no-duplicate-imports": "error",
   },
 };

@@ -3,8 +3,8 @@ import PlanetsService from "./services/PlanetsService";
 import ContentSection from "./components/ContentSection/ContentSection";
 import { Planet } from "./components/PlanetCard/PlanetCard.model";
 import Input from "./components/Input/Input";
-import "./App.css";
 import Button from "./components/Button/Button";
+import "./App.css";
 
 interface AppState {
   inputValue: string;
