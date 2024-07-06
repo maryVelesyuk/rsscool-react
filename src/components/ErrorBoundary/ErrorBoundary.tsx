@@ -1,16 +1,23 @@
 import { Component, ReactNode } from 'react'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
+interface ErrorBoundaryProps {
+  children: ReactNode
+}
+
 type ErrorBoundaryState = {
   error: boolean
 }
 
-class ErrorBoundary extends Component<
-  { children: ReactNode },
+export default class ErrorBoundary extends Component<
+  ErrorBoundaryProps,
   ErrorBoundaryState
 > {
-  state = {
-    error: false,
+  constructor(props: ErrorBoundaryProps) {
+    super(props)
+    this.state = {
+      error: false,
+    }
   }
 
   componentDidCatch(error: Error) {
@@ -25,5 +32,3 @@ class ErrorBoundary extends Component<
     return this.props.children
   }
 }
-
-export default ErrorBoundary

@@ -1,7 +1,6 @@
 import { Component, ChangeEvent, MouseEvent } from 'react'
 import PlanetsService from './services/PlanetsService'
 import ContentSection from './components/ContentSection/ContentSection'
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { Planet } from './components/PlanetCard/PlanetCard.model'
 import Input from './components/Input/Input'
 import './App.css'
@@ -30,6 +29,7 @@ class App extends Component<Record<string, never>, AppState> {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.onThrowError = this.onThrowError.bind(this)
   }
 
   planetsService = new PlanetsService()
@@ -65,6 +65,7 @@ class App extends Component<Record<string, never>, AppState> {
   onLoading = () => {
     this.setState({
       loading: true,
+      error: false,
     })
   }
 
@@ -89,6 +90,10 @@ class App extends Component<Record<string, never>, AppState> {
       .catch(this.onError)
   }
 
+  onThrowError() {
+    this.setState({ error: true })
+  }
+
   render() {
     const { inputValue, loading, error, planetsList, searchStr } = this.state
 
@@ -97,15 +102,14 @@ class App extends Component<Record<string, never>, AppState> {
         <section className="search">
           <Input value={inputValue} onChange={this.handleChange} />
           <Button onClick={this.handleSubmit} text="Search" />
+          <Button onClick={this.onThrowError} text="Throw Error" />
         </section>
-        <ErrorBoundary>
-          <ContentSection
-            loading={loading}
-            error={error}
-            planets={planetsList}
-            searchStr={searchStr}
-          />
-        </ErrorBoundary>
+        <ContentSection
+          loading={loading}
+          error={error}
+          planets={planetsList}
+          searchStr={searchStr}
+        />
       </div>
     )
   }

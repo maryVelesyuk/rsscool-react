@@ -16,6 +16,7 @@ export default class ContentSection extends Component<ContentSectionProps> {
     if (error) {
       throw new Error('Something went wrong!')
     }
+
     const searchResult = planets.length ? (
       planets.map((planet) => (
         <PlanetCard key={planet.name} planetInfo={planet} />
