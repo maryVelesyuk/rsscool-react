@@ -1,0 +1,9 @@
+.wrapper {
+  margin: 30px 60px;
+  min-height: 85vh;
+}
+.search {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
