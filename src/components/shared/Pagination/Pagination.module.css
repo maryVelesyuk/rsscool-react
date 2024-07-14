@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.active {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #9f0013;
+  box-shadow: 0 1px 1px #9f0013;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.regular {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #5c5c5c;
+  border-radius: 2px;
+  cursor: pointer;
+}

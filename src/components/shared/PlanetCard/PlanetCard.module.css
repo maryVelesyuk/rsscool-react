@@ -1,0 +1,17 @@
+.card {
+  width: 250px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+.cardActive {
+  width: 250px;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #9f0013;
+}
+.title {
+  font-size: 18px;
+}
