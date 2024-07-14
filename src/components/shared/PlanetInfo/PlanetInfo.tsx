@@ -1,3 +1,4 @@
+import { Button } from "../Button";
 import { Planet } from "../PlanetCard/PlanetCard.model";
 import styles from "./PlanetInfo.module.css";
 import { useLoaderData, useNavigate } from "react-router-dom";
@@ -19,11 +20,15 @@ export const PlanetInfo = () => {
   } = useLoaderData() as { results: Planet[] };
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate("/");
+  };
+
   return (
     <div className={styles.wrapper}>
-      <button className={styles.close} onClick={() => navigate("/")}>
-        close
-      </button>
+      <div className={styles.close}>
+        <Button type="primary" onClick={handleClick} text="close" />
+      </div>
       <h3>Aditional information about planet {name}</h3>
       <p>diameter: {diameter}</p>
       <p>gravity: {gravity} </p>

@@ -4,7 +4,7 @@ import styles from "./MainPage.module.css";
 import { usePlanetsService } from "../../../utils/usePlanetsService";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import { Planet } from "../../shared/PlanetCard/PlanetCard.model";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 
 export const SEARCH_STR = "searchStr";
 export const PLANETS_DATA = "planets";
@@ -15,6 +15,7 @@ export const MainPage = () => {
   const [pagesCount, setPagesCount] = useState<number>(0);
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [errorForBoundary, setErrorForBoundary] = useState<boolean>(false);
+  const navigation = useNavigation();
 
   const [planetsFromLS, setPlanetsToLS] = useLocalStorage(PLANETS_DATA);
   const [searchStrFromLS, setSearcgStrToLS] = useLocalStorage(SEARCH_STR);
@@ -43,8 +44,8 @@ export const MainPage = () => {
   const onSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     getSearchRes(inputValue).then((data) => {
-      setPlanets(data);
-      setPlanetsToLS(data);
+      setPlanets(data.results);
+      setPlanetsToLS(data.results);
     });
     setSearcgStrToLS(inputValue);
   };
@@ -59,6 +60,7 @@ export const MainPage = () => {
   return (
     <>
       <Outlet />
+      {navigation.state === "loading" && <div className={styles.fade}></div>}
       <div className={styles.wrapper}>
         <section className={styles.search}>
           <Input
