@@ -1,10 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Button, Input, PlanetsList } from "../../shared";
+import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
+import { Button, ErrorBoundary, Input, PlanetsList } from "../../shared";
 import styles from "./MainPage.module.css";
 import { usePlanetsService } from "../../../utils/usePlanetsService";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import { Planet } from "../../shared/PlanetCard/PlanetCard.model";
-import ErrorMessage from "../../shared/ErrorMessage/ErrorMessage";
 
 export const SEARCH_STR = "searchStr";
 export const PLANETS_DATA = "planets";
@@ -12,8 +11,11 @@ export const PLANETS_DATA = "planets";
 export const MainPage = () => {
   const [inputValue, setInputValue] = useState("");
   const [planets, setPlanets] = useState<Planet[]>([]);
+  const [pagesCount, setPagesCount] = useState<number>(0);
+  const [selectedPage, setSelectedPage] = useState<number>(1);
+  const [errorForBoundary, setErrorForBoundary] = useState<boolean>(false);
 
-  const [planetsFromLS, setPlanetsToStorage] = useLocalStorage(PLANETS_DATA);
+  const [planetsFromLS, setPlanetsToLS] = useLocalStorage(PLANETS_DATA);
   const [searchStrFromLS, setSearcgStrToLS] = useLocalStorage(SEARCH_STR);
   const { loading, error, getPlanetsData, getSearchRes } = usePlanetsService();
 
@@ -23,23 +25,34 @@ export const MainPage = () => {
       setInputValue(searchStrFromLS);
     } else {
       getPlanetsData().then((data) => {
-        setPlanets(data);
+        setPagesCount(Math.ceil(data.count / 10));
+        setPlanets(data.results);
       });
     }
-  }, [getPlanetsData, planetsFromLS, searchStrFromLS]); //FIIIX
+  }, []);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const onThrowErrorClick = () => {};
+  const onThrowErrorClick = () => {
+    setErrorForBoundary(true);
+  };
 
-  const onSearchClick = () => {
+  const onSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     getSearchRes(inputValue).then((data) => {
       setPlanets(data);
-      setPlanetsToStorage(data);
+      setPlanetsToLS(data);
     });
     setSearcgStrToLS(inputValue);
+  };
+
+  const onSelectedPageClick = (page: number) => {
+    setSelectedPage(page);
+    getPlanetsData(page).then((data) => {
+      setPlanets(data.results);
+    });
   };
 
   return (
@@ -49,11 +62,20 @@ export const MainPage = () => {
         <Button type="primary" onClick={onSearchClick} text="Search" />
         <Button type="error" onClick={onThrowErrorClick} text="Throw Error" />
       </section>
-      <section className={styles.content}>
-        {error && <ErrorMessage />}
-        {loading && <div>Loading...</div>}
-        {!error && !loading && <PlanetsList planets={planets} />}
-      </section>
+      <ErrorBoundary>
+        <section className={styles.content}>
+          {loading && <div>Loading...</div>}
+          {!error && !loading && (
+            <PlanetsList
+              planets={planets}
+              pagesCount={pagesCount}
+              selectedPage={selectedPage}
+              onSelectedPageClick={onSelectedPageClick}
+              error={errorForBoundary}
+            />
+          )}
+        </section>
+      </ErrorBoundary>
     </div>
   );
 };

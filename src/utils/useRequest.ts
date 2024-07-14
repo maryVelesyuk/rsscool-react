@@ -36,5 +36,5 @@ export const useRequest = () => {
     setError(false);
   };
 
-  return { loading, request, error, clearError };
+  return { loading, request, error, clearError, setError };
 };
