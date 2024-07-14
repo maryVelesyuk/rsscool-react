@@ -4,6 +4,7 @@ import styles from "./MainPage.module.css";
 import { usePlanetsService } from "../../../utils/usePlanetsService";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
 import { Planet } from "../../shared/PlanetCard/PlanetCard.model";
+import { Outlet } from "react-router-dom";
 
 export const SEARCH_STR = "searchStr";
 export const PLANETS_DATA = "planets";
@@ -56,26 +57,33 @@ export const MainPage = () => {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <section className={styles.search}>
-        <Input value={inputValue} onChange={onChange} placeholder="search..." />
-        <Button type="primary" onClick={onSearchClick} text="Search" />
-        <Button type="error" onClick={onThrowErrorClick} text="Throw Error" />
-      </section>
-      <ErrorBoundary>
-        <section className={styles.content}>
-          {loading && <div>Loading...</div>}
-          {!error && !loading && (
-            <PlanetsList
-              planets={planets}
-              pagesCount={pagesCount}
-              selectedPage={selectedPage}
-              onSelectedPageClick={onSelectedPageClick}
-              error={errorForBoundary}
-            />
-          )}
+    <>
+      <Outlet />
+      <div className={styles.wrapper}>
+        <section className={styles.search}>
+          <Input
+            value={inputValue}
+            onChange={onChange}
+            placeholder="search..."
+          />
+          <Button type="primary" onClick={onSearchClick} text="Search" />
+          <Button type="error" onClick={onThrowErrorClick} text="Throw Error" />
         </section>
-      </ErrorBoundary>
-    </div>
+        <ErrorBoundary>
+          <section className={styles.content}>
+            {loading && <div>Loading...</div>}
+            {!error && !loading && (
+              <PlanetsList
+                planets={planets}
+                pagesCount={pagesCount}
+                selectedPage={selectedPage}
+                onSelectedPageClick={onSelectedPageClick}
+                error={errorForBoundary}
+              />
+            )}
+          </section>
+        </ErrorBoundary>
+      </div>
+    </>
   );
 };
