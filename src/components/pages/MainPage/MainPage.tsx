@@ -1,5 +1,11 @@
 import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
-import { Button, ErrorBoundary, Input, PlanetsList } from "../../shared";
+import {
+  Button,
+  ErrorBoundary,
+  Input,
+  PlanetsList,
+  Spinner,
+} from "../../shared";
 import styles from "./MainPage.module.css";
 import { usePlanetsService } from "../../../utils/usePlanetsService";
 import { useLocalStorage } from "../../../utils/useLocalStorage";
@@ -60,8 +66,13 @@ export const MainPage = () => {
   return (
     <>
       <Outlet />
-      {navigation.state === "loading" && <div className={styles.fade}></div>}
+
       <div className={styles.wrapper}>
+        {navigation.state === "loading" && (
+          <div className={styles.fade}>
+            <Spinner />
+          </div>
+        )}
         <section className={styles.search}>
           <Input
             value={inputValue}
