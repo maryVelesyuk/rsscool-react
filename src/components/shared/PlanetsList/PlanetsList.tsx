@@ -1,39 +1,33 @@
 import { FC, useState } from "react";
 import styles from "./PlanetsList.module.css";
-import { Planet } from "../PlanetCard/PlanetCard.model";
 import { PlanetCard } from "../PlanetCard";
 import { Pagination } from "../Pagination";
+import { useGetPlanetsQuery } from "../../../redux/api/planetsApi";
+import { Spinner } from "../Spinner";
+import { ErrorMessage } from "../ErrorMessage";
+import { useAppSelector } from "../../../redux/hooks";
 
-interface PlanetsListProps {
-  planets: Planet[];
-  pagesCount: number;
-  selectedPage: number;
-  onSelectedPageClick: (page: number) => void;
-  error: boolean;
-}
-
-export const PlanetsList: FC<PlanetsListProps> = ({
-  planets,
-  pagesCount,
-  onSelectedPageClick,
-  selectedPage,
-  error,
-}) => {
+export const PlanetsList: FC = () => {
   const [selectedPlanet, setSelrctedPlanet] = useState<string | null>(null);
+  const { selectedPage } = useAppSelector((state) => state.selectedPage);
+  const {
+    data: planetsData,
+    isError,
+    isLoading,
+  } = useGetPlanetsQuery(selectedPage);
 
   const onCardClick = (name: string) => {
     setSelrctedPlanet(name);
   };
 
-  if (error) {
-    throw new Error("Error");
-  }
+  if (isLoading) return <Spinner />;
+  if (isError) return <ErrorMessage />;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
-        {planets.length
-          ? planets.map((planet) => (
+        {planetsData && planetsData.results.length
+          ? planetsData.results.map((planet) => (
               <PlanetCard
                 key={planet.name}
                 planetInfo={planet}
@@ -43,11 +37,7 @@ export const PlanetsList: FC<PlanetsListProps> = ({
             ))
           : "Search result not found!"}
       </div>
-      <Pagination
-        pagesCount={pagesCount}
-        onSelectedPageClick={onSelectedPageClick}
-        selectedPage={selectedPage}
-      />
+      <Pagination pagesCount={planetsData && planetsData.count} />
     </div>
   );
 };

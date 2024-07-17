@@ -1,18 +1,22 @@
 import { FC } from "react";
 import styles from "./Pagination.module.css";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { setPage } from "../../../redux/slices/selectedPage";
 
 interface PaginationProps {
-  pagesCount: number;
-  selectedPage: number;
-  onSelectedPageClick: (page: number) => void;
+  pagesCount: number | undefined;
 }
 
-export const Pagination: FC<PaginationProps> = ({
-  pagesCount,
-  selectedPage,
-  onSelectedPageClick,
-}) => {
-  const numbersArr = [...Array(pagesCount).keys()].map((item) => item + 1);
+export const Pagination: FC<PaginationProps> = ({ pagesCount = 0 }) => {
+  const numbersArr = [...Array(Math.ceil(pagesCount / 10)).keys()].map(
+    (item) => item + 1
+  );
+  const dispatch = useAppDispatch();
+  const { selectedPage } = useAppSelector((state) => state.selectedPage);
+
+  const onSelectedPageClick = (page: number) => {
+    dispatch(setPage(page));
+  };
 
   return (
     <div className={styles.wrapper}>
