@@ -7,6 +7,9 @@
   color: #242424;
   box-sizing: border-box;
 }
+body {
+  position: relative;
+}
 body,
 h3,
 p {

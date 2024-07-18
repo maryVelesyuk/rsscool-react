@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { planetsApi } from "./api/planetsApi";
 import selectedPageReducer from "./slices/selectedPage";
+import selectedPlanetsReducer from "./slices/selectedPlanets";
 
 export const rootReducer = combineReducers({
   selectedPage: selectedPageReducer,
+  selectedPlanets: selectedPlanetsReducer,
   [planetsApi.reducerPath]: planetsApi.reducer,
 });
 

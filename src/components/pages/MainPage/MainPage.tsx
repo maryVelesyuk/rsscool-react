@@ -15,6 +15,7 @@ export const PLANETS_DATA = "planets";
 export const MainPage = () => {
   const [inputValue, setInputValue] = useState("");
   const navigation = useNavigation();
+
   // const [trigger] = useLazyGetPlanetsBySearchParamQuery();
   // const [planetsFromLS, setPlanetsToLS] = useLocalStorage(PLANETS_DATA);
   // const [searchStrFromLS, setSearcgStrToLS] = useLocalStorage(SEARCH_STR);
@@ -26,7 +27,6 @@ export const MainPage = () => {
 
   const onSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setSearchStr(inputValue);
     // getSearchRes(inputValue).then((data) => {
     //   setPlanets(data.results);
     //   setPlanetsToLS(data.results);
@@ -37,7 +37,6 @@ export const MainPage = () => {
   return (
     <>
       <Outlet />
-
       <div className={styles.wrapper}>
         {navigation.state === "loading" && (
           <div className={styles.fade}>
