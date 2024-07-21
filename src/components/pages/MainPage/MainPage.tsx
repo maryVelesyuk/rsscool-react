@@ -8,6 +8,7 @@ import {
 } from "../../shared";
 import styles from "./MainPage.module.css";
 import { Outlet, useNavigation } from "react-router-dom";
+import { Portal } from "../../shared/Portal";
 
 export const SEARCH_STR = "searchStr";
 export const PLANETS_DATA = "planets";
@@ -57,6 +58,7 @@ export const MainPage = () => {
           </section>
         </ErrorBoundary>
       </div>
+      <Portal />
     </>
   );
 };

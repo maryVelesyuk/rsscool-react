@@ -7,3 +7,4 @@ export { PlanetsList } from "./PlanetsList";
 export { Pagination } from "./Pagination";
 export { PlanetInfo } from "./PlanetInfo";
 export { Modal } from "./Modal";
+export { DownloadCSV } from "./DownloadCSV";

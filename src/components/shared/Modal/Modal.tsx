@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./Modal.module.css";
-import { Button } from "../Button";
+import { Button, DownloadCSV } from "..";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { unselectAll } from "../../../redux/slices/selectedPlanets";
 
@@ -10,14 +10,14 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = ({ onClose }) => {
   const dispatch = useAppDispatch();
-  const { planetsName } = useAppSelector((state) => state.selectedPlanets);
+  const { planetsName, planetsInfo } = useAppSelector(
+    (state) => state.selectedPlanets
+  );
   const count = planetsName.length;
 
   const handleUnselectAll = () => {
     dispatch(unselectAll());
   };
-
-  const handleDownload = () => {};
 
   return (
     <div className={styles.wrapper}>
@@ -31,7 +31,8 @@ export const Modal: FC<ModalProps> = ({ onClose }) => {
             onClick={handleUnselectAll}
             text="Unselect all"
           />
-          <Button type="primary" onClick={handleDownload} text="Download" />
+          <DownloadCSV data={planetsInfo} fileName="planets-info" />
+          {/* <Button type="primary" onClick={handleDownload} text="Download" /> */}
         </div>
       </div>
       <button className={styles.closeBtn} onClick={onClose}>
