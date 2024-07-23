@@ -4,18 +4,14 @@ import { Planet } from "./PlanetCard.model";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { addPlanet, removePlanet } from "../../../redux/slices/selectedPlanets";
+import { useThemeContext } from "../../../utils/useThemeContext";
 
 interface PlanetCardProps {
   planetInfo: Planet;
-  active: boolean;
-  onCardClick: (name: string) => void;
 }
 
-export const PlanetCard: FC<PlanetCardProps> = ({
-  planetInfo,
-  active,
-  onCardClick,
-}) => {
+export const PlanetCard: FC<PlanetCardProps> = ({ planetInfo }) => {
+  const { theme } = useThemeContext();
   const { name, rotation_period, diameter, climate, gravity } = planetInfo;
   const { planetsName } = useAppSelector((state) => state.selectedPlanets);
   const dispatch = useAppDispatch();
@@ -31,9 +27,7 @@ export const PlanetCard: FC<PlanetCardProps> = ({
   return (
     <div className={styles.wrapper}>
       <Link to={`/${name}`}>
-        <div
-          className={active ? styles.cardActive : styles.card}
-          onChange={() => onCardClick(name)}>
+        <div className={`${styles.card} ${theme === "dark" && styles.dark}`}>
           <h3 className={styles.title}>Planet: {name}</h3>
           <p className={styles.info}>Rotation period: {rotation_period}</p>
           <p className={styles.info}>Diameter: {diameter}</p>

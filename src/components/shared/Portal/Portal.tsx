@@ -12,6 +12,9 @@ export const Portal = () => {
   };
 
   useEffect(() => {
+    if (!planetsName.length) {
+      setShowModal(false);
+    }
     if (planetsName.length) setShowModal(true);
     const timeoutId = setTimeout(() => setShowModal(false), 4000);
     return () => clearTimeout(timeoutId);

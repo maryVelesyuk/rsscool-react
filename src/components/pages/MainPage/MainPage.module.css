@@ -1,5 +1,13 @@
+.light {
+  background-color: #f8f3f3de;
+  color: #242424;
+}
+.dark {
+  background-color: #242424;
+  color: #f8f3f3de;
+}
 .wrapper {
-  margin: 30px 60px;
+  padding: 30px 60px;
   min-height: 85vh;
   position: relative;
 }

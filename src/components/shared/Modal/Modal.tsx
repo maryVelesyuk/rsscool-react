@@ -32,7 +32,6 @@ export const Modal: FC<ModalProps> = ({ onClose }) => {
             text="Unselect all"
           />
           <DownloadCSV data={planetsInfo} fileName="planets-info" />
-          {/* <Button type="primary" onClick={handleDownload} text="Download" /> */}
         </div>
       </div>
       <button className={styles.closeBtn} onClick={onClose}>

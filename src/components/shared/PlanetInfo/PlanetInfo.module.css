@@ -11,6 +11,11 @@
   animation-name: show;
   animation-duration: 1s;
 }
+.wrapper.dark {
+  background-color: #151515;
+  color: #f8f3f3de;
+}
+
 @keyframes show {
   from {
     left: -600px;

@@ -6,3 +6,7 @@ input {
   font-size: 18px;
   min-width: 350px;
 }
+.dark {
+  background-color: #434343;
+  color: #f8f3f3de;
+}

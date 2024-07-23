@@ -1,3 +1,4 @@
+import { useThemeContext } from "../../../utils/useThemeContext";
 import { Button } from "../Button";
 import { Planet } from "../PlanetCard/PlanetCard.model";
 import styles from "./PlanetInfo.module.css";
@@ -19,13 +20,14 @@ export const PlanetInfo = () => {
     ],
   } = useLoaderData() as { results: Planet[] };
   const navigate = useNavigate();
+  const { theme } = useThemeContext();
 
   const handleClick = () => {
     navigate("/");
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${theme === "dark" && styles.dark}`}>
       <div className={styles.close}>
         <Button type="primary" onClick={handleClick} text="close" />
       </div>

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./PlanetsList.module.css";
 import { PlanetCard } from "../PlanetCard";
 import { Pagination } from "../Pagination";
@@ -8,17 +8,12 @@ import { ErrorMessage } from "../ErrorMessage";
 import { useAppSelector } from "../../../redux/hooks";
 
 export const PlanetsList: FC = () => {
-  const [selectedPlanet, setSelrctedPlanet] = useState<string | null>(null);
   const { selectedPage } = useAppSelector((state) => state.selectedPage);
   const {
     data: planetsData,
     isError,
     isLoading,
   } = useGetPlanetsQuery(selectedPage);
-
-  const onCardClick = (name: string) => {
-    setSelrctedPlanet(name);
-  };
 
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorMessage />;
@@ -28,12 +23,7 @@ export const PlanetsList: FC = () => {
       <div className={styles.content}>
         {planetsData && planetsData.results.length
           ? planetsData.results.map((planet) => (
-              <PlanetCard
-                key={planet.name}
-                planetInfo={planet}
-                active={planet.name === selectedPlanet}
-                onCardClick={onCardClick}
-              />
+              <PlanetCard key={planet.name} planetInfo={planet} />
             ))
           : "Search result not found!"}
       </div>
