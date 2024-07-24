@@ -16,7 +16,7 @@ export const Switcher = () => {
   return (
     <label className={styles.switch}>
       <input type="checkbox" onChange={toggleTheme} />
-      <span className={`${styles.slider}`} />
+      <span className={styles.slider} />
     </label>
   );
 };

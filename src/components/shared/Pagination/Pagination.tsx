@@ -4,11 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { setPage } from "../../../redux/slices/selectedPage";
 
 interface PaginationProps {
-  pagesCount: number | undefined;
+  planetsCount: number | undefined;
 }
 
-export const Pagination: FC<PaginationProps> = ({ pagesCount = 0 }) => {
-  const numbersArr = [...Array(Math.ceil(pagesCount / 10)).keys()].map(
+export const Pagination: FC<PaginationProps> = ({ planetsCount = 1 }) => {
+  const numbersArr = [...Array(Math.ceil(planetsCount / 10)).keys()].map(
     (item) => item + 1
   );
   const dispatch = useAppDispatch();

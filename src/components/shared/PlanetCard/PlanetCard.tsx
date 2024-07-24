@@ -27,7 +27,9 @@ export const PlanetCard: FC<PlanetCardProps> = ({ planetInfo }) => {
   return (
     <div className={styles.wrapper}>
       <Link to={`/${name}`}>
-        <div className={`${styles.card} ${theme === "dark" && styles.dark}`}>
+        <div
+          className={`${styles.card} ${theme === "dark" && styles.dark}`}
+          data-testid="planetCard">
           <h3 className={styles.title}>Planet: {name}</h3>
           <p className={styles.info}>Rotation period: {rotation_period}</p>
           <p className={styles.info}>Diameter: {diameter}</p>

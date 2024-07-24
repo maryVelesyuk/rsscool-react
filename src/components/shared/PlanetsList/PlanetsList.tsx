@@ -27,7 +27,7 @@ export const PlanetsList: FC = () => {
             ))
           : "Search result not found!"}
       </div>
-      <Pagination pagesCount={planetsData && planetsData.count} />
+      <Pagination planetsCount={planetsData && planetsData.count} />
     </div>
   );
 };
