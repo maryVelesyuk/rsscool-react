@@ -19,15 +19,17 @@ export const PlanetsList: FC = () => {
   if (isError) return <ErrorMessage />;
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.content}>
-        {planetsData && planetsData.results.length
-          ? planetsData.results.map((planet) => (
-              <PlanetCard key={planet.name} planetInfo={planet} />
-            ))
-          : "Search result not found!"}
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.content}>
+          {planetsData && planetsData.results.length
+            ? planetsData.results.map((planet) => (
+                <PlanetCard key={planet.name} planetInfo={planet} />
+              ))
+            : "Search result not found!"}
+        </div>
       </div>
       <Pagination planetsCount={planetsData && planetsData.count} />
-    </div>
+    </>
   );
 };

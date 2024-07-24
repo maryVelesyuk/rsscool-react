@@ -31,7 +31,10 @@ export const Modal: FC<ModalProps> = ({ onClose }) => {
             onClick={handleUnselectAll}
             text="Unselect all"
           />
-          <DownloadCSV data={planetsInfo} fileName="planets-info" />
+          <DownloadCSV
+            data={planetsInfo}
+            fileName={`${count}_${count === 1 ? "planet" : "planets"}`}
+          />
         </div>
       </div>
       <button className={styles.closeBtn} onClick={onClose}>

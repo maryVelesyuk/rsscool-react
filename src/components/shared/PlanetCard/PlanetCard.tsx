@@ -41,7 +41,7 @@ export const PlanetCard: FC<PlanetCardProps> = ({ planetInfo }) => {
         <input
           type="checkbox"
           id={name}
-          defaultChecked={planetsName.includes(name)}
+          checked={planetsName.includes(name)}
           onChange={handleToggle}
         />
         <label htmlFor={name}>Select</label>

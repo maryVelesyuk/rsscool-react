@@ -16,5 +16,9 @@
 .title {
   font-size: 18px;
 }
-.checkbox {
+.checkbox input {
+  cursor: pointer;
+}
+.checkbox label {
+  cursor: pointer;
 }
