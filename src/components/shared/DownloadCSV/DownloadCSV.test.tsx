@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { DownloadCSV } from "./";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 
 describe("testing DownloadCSV", () => {
   it("should render text 'Download'", () => {
