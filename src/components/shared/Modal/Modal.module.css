@@ -1,0 +1,32 @@
+.wrapper {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+  display: flex;
+}
+.content {
+  position: relative;
+}
+.content p {
+  margin-bottom: 10px;
+}
+.btnSection {
+  display: flex;
+  gap: 10px;
+}
+.closeBtn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  padding: 0;
+  text-align: center;
+  font-size: 18px;
+  color: #242424;
+  border: none;
+  background-color: #fff;
+  border-radius: 0;
+  cursor: pointer;
+}
