@@ -20,7 +20,7 @@ export const Modal: FC<ModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="modal">
       <div className={styles.content}>
         <p>
           {count} {count === 1 ? "item is" : "items are"} selected
@@ -37,7 +37,7 @@ export const Modal: FC<ModalProps> = ({ onClose }) => {
           />
         </div>
       </div>
-      <button className={styles.closeBtn} onClick={onClose}>
+      <button data-testid="close" className={styles.closeBtn} onClick={onClose}>
         X
       </button>
     </div>

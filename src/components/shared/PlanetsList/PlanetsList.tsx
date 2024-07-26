@@ -20,7 +20,7 @@ export const PlanetsList: FC = () => {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} data-testid="planetsList">
         <div className={styles.content}>
           {planetsData && planetsData.results.length
             ? planetsData.results.map((planet) => (
