@@ -20,22 +20,12 @@ export const MainPage = () => {
   const navigation = useNavigation();
   const { theme } = useThemeContext();
 
-  // const [trigger] = useLazyGetPlanetsBySearchParamQuery();
-  // const [planetsFromLS, setPlanetsToLS] = useLocalStorage(PLANETS_DATA);
-  // const [searchStrFromLS, setSearcgStrToLS] = useLocalStorage(SEARCH_STR);
-  // const { loading, error, getPlanetsData, getSearchRes } = usePlanetsService();
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const onSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    // getSearchRes(inputValue).then((data) => {
-    //   setPlanets(data.results);
-    //   setPlanetsToLS(data.results);
-    // });
-    // setSearcgStrToLS(inputValue);
   };
 
   return (

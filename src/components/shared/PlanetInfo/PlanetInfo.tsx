@@ -27,7 +27,9 @@ export const PlanetInfo = () => {
   };
 
   return (
-    <div className={`${styles.wrapper} ${theme === "dark" && styles.dark}`}>
+    <div
+      className={`${styles.wrapper} ${theme === "dark" && styles.dark}`}
+      data-testid="planetInfo">
       <div className={styles.close}>
         <Button type="primary" onClick={handleClick} text="close" />
       </div>
