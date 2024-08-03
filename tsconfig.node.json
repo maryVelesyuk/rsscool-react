@@ -7,7 +7,15 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "references": [
+      {
+        "path": "./tsconfig.app.json"
+      },
+      {
+        "path": "./tsconfig.node.json"
+      }
+    ]
   },
   "include": ["vite.config.ts"]
 }
