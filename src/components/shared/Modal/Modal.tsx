@@ -1,8 +1,8 @@
 import { FC } from "react";
 import styles from "./Modal.module.css";
 import { Button, DownloadCSV } from "..";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { unselectAll } from "../../../redux/slices/selectedPlanets";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import { unselectAll } from "../../../lib/features/selectedPlanets";
 
 interface ModalProps {
   onClose: () => void;

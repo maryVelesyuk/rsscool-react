@@ -2,10 +2,10 @@ import { FC } from "react";
 import styles from "./PlanetsList.module.css";
 import { PlanetCard } from "../PlanetCard";
 import { Pagination } from "../Pagination";
-import { useGetPlanetsQuery } from "../../../redux/api/planetsApi";
+import { useGetPlanetsQuery } from "../../../lib/api/planetsApi";
 import { Spinner } from "../Spinner";
 import { ErrorMessage } from "../ErrorMessage";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../lib/hooks";
 
 export const PlanetsList: FC = () => {
   const { selectedPage } = useAppSelector((state) => state.selectedPage);

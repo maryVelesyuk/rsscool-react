@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Modal } from "../Modal";
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "../../../lib/hooks";
 
 export const Portal = () => {
   const [showModal, setShowModal] = useState(false);

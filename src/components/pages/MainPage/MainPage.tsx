@@ -4,11 +4,9 @@ import {
   ErrorBoundary,
   Input,
   PlanetsList,
-  Spinner,
   Switcher,
 } from "../../shared";
 import styles from "./MainPage.module.css";
-import { Outlet, useNavigation } from "react-router-dom";
 import { Portal } from "../../shared/Portal";
 import { useThemeContext } from "../../../utils/useThemeContext";
 
@@ -17,7 +15,6 @@ export const PLANETS_DATA = "planets";
 
 export const MainPage = () => {
   const [inputValue, setInputValue] = useState("");
-  const navigation = useNavigation();
   const { theme } = useThemeContext();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,14 +27,9 @@ export const MainPage = () => {
 
   return (
     <>
-      <Outlet />
+      {/* <Outlet /> */}
       <div
         className={`${styles.wrapper} ${theme === "light" ? styles.light : styles.dark}`}>
-        {navigation.state === "loading" && (
-          <div className={styles.fade}>
-            <Spinner />
-          </div>
-        )}
         <section className={styles.search}>
           <Input
             value={inputValue}

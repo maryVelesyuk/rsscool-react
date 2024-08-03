@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./Pagination.module.css";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import { setPage } from "../../../redux/slices/selectedPage";
+import { useAppDispatch, useAppSelector } from "../../../lib/hooks";
+import { setPage } from "../../../lib/features/selectedPage";
 
 interface PaginationProps {
   planetsCount: number | undefined;
