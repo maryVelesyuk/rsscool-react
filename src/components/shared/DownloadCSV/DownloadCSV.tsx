@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Planet } from "../PlanetCard/PlanetCard.model";
 import { Button } from "../Button";
 
@@ -8,6 +8,8 @@ interface DownloadCSVProps {
 }
 
 export const DownloadCSV: FC<DownloadCSVProps> = ({ data, fileName }) => {
+  const [url, setUrl] = useState<string>("");
+
   const convertToCSV = (objArray: Planet[]) => {
     const array =
       typeof objArray !== "object" ? JSON.parse(objArray) : objArray;
@@ -28,13 +30,16 @@ export const DownloadCSV: FC<DownloadCSVProps> = ({ data, fileName }) => {
   const downloadCSV = () => {
     const csvData = new Blob([convertToCSV(data)], { type: "text/csv" });
     const csvURL = URL.createObjectURL(csvData);
-    const link = document.createElement("a");
-    link.href = csvURL;
-    link.download = `${fileName}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    setUrl(csvURL);
   };
 
-  return <Button type="primary" onClick={downloadCSV} text="Download" />;
+  return (
+    <a
+      href={url}
+      title="Download CSV"
+      className="main-button"
+      download={`${fileName}.csv`}>
+      <Button type="primary" onClick={downloadCSV} text="Download" />
+    </a>
+  );
 };
