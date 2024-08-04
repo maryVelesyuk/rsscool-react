@@ -1,11 +1,10 @@
 import { it, expect, beforeAll, afterEach, afterAll, describe } from "vitest";
 import { PlanetsList } from ".";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "../../../redux/store";
 import { http, HttpResponse, delay } from "msw";
 import { setupServer } from "msw/node";
-import ThemeContextProvider from "../../../themeContext";
+import ThemeProvider from "../../../app/theme-provider";
+import StoreProvider from "../../../app/StoreProvider";
 
 export const handlers = [
   http.get("?page=1", async () => {
@@ -38,11 +37,11 @@ afterAll(() => server.close());
 describe("testing PlanetsList", () => {
   it("should render PlanetsList", async () => {
     render(
-      <ThemeContextProvider>
-        <Provider store={store}>
+      <ThemeProvider>
+        <StoreProvider>
           <PlanetsList />
-        </Provider>
-      </ThemeContextProvider>
+        </StoreProvider>
+      </ThemeProvider>
     );
     expect(screen.getByTestId("spinner")).toBeInTheDocument();
   });

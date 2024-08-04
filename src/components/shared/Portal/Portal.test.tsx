@@ -1,8 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { Portal } from ".";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "../../../redux/store";
+import StoreProvider from "../../../app/StoreProvider";
 
 describe("testing Portal", () => {
   it("should render Modal when showModal is true", () => {
@@ -12,9 +11,9 @@ describe("testing Portal", () => {
     }));
 
     render(
-      <Provider store={store}>
+      <StoreProvider>
         <Portal />
-      </Provider>
+      </StoreProvider>
     );
     expect(screen.getByTestId("modal")).toBeInTheDocument();
   });

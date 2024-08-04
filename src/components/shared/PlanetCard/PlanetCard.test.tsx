@@ -1,10 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { PlanetCard } from ".";
 import { fireEvent, render, screen } from "@testing-library/react";
-import ThemeContextProvider from "../../../themeContext";
-import { Provider } from "react-redux";
-import { store } from "../../../redux/store";
-import { MemoryRouter } from "react-router-dom";
+import StoreProvider from "../../../app/StoreProvider";
+import ThemeProvider from "../../../app/theme-provider";
 
 const planetX = {
   name: "planet X",
@@ -26,25 +24,21 @@ const planetX = {
 describe("testing PlanetCard", () => {
   it("should render PlanetCard", () => {
     render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <ThemeContextProvider>
-            <PlanetCard planetInfo={planetX} />
-          </ThemeContextProvider>
-        </Provider>
-      </MemoryRouter>
+      <StoreProvider>
+        <ThemeProvider>
+          <PlanetCard planetInfo={planetX} />
+        </ThemeProvider>
+      </StoreProvider>
     );
     expect(screen.getByText(/planet X/)).toBeInTheDocument();
   });
   it("should select item when click on checkbox", () => {
     render(
-      <MemoryRouter>
-        <Provider store={store}>
-          <ThemeContextProvider>
-            <PlanetCard planetInfo={planetX} />
-          </ThemeContextProvider>
-        </Provider>
-      </MemoryRouter>
+      <StoreProvider>
+        <ThemeProvider>
+          <PlanetCard planetInfo={planetX} />
+        </ThemeProvider>
+      </StoreProvider>
     );
     const checkbox = screen.getByLabelText("Select") as HTMLInputElement;
     expect(checkbox).toBeInTheDocument();

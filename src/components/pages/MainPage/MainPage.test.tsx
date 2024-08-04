@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { MainPage } from ".";
 import { render, screen } from "@testing-library/react";
-import ThemeContextProvider from "../../../themeContext";
-import { store } from "../../../redux/store";
-import { Provider } from "react-redux";
+import StoreProvider from "../../../app/StoreProvider";
+import ThemeProvider from "../../../app/theme-provider";
 
 vi.mock("react-router-dom", async () => ({
   ...(await vi.importActual("react-router-dom")),
@@ -15,11 +14,11 @@ vi.mock("react-router-dom", async () => ({
 describe("testing Button", () => {
   it("should render text from props", () => {
     render(
-      <ThemeContextProvider>
-        <Provider store={store}>
+      <ThemeProvider>
+        <StoreProvider>
           <MainPage />
-        </Provider>
-      </ThemeContextProvider>
+        </StoreProvider>
+      </ThemeProvider>
     );
     expect(screen.getByText("Search")).toBeInTheDocument();
   });

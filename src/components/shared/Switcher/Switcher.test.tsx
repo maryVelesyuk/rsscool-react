@@ -1,22 +1,22 @@
 import { describe, it, expect } from "vitest";
 import { Switcher } from ".";
 import { fireEvent, render, screen } from "@testing-library/react";
-import ThemeContextProvider from "../../../themeContext";
+import ThemeProvider from "../../../app/theme-provider";
 
 describe("testing Switcher", () => {
   it("should render checkbox", () => {
     render(
-      <ThemeContextProvider>
+      <ThemeProvider>
         <Switcher />
-      </ThemeContextProvider>
+      </ThemeProvider>
     );
     expect(screen.getByRole("checkbox")).toBeInTheDocument();
   });
   it("when clicking on the checkbox the checkbox sould be checked", () => {
     render(
-      <ThemeContextProvider>
+      <ThemeProvider>
         <Switcher />
-      </ThemeContextProvider>
+      </ThemeProvider>
     );
     const checkbox = screen.getByRole("checkbox");
     fireEvent.click(checkbox);

@@ -1,45 +1,38 @@
-import { it, expect, describe } from "vitest";
+import { it, expect, describe, vi } from "vitest";
 import { PlanetInfo } from ".";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "../../../redux/store";
-import ThemeContextProvider from "../../../themeContext";
-import { createMemoryRouter } from "react-router-dom";
-import { RouterProvider } from "react-router";
+import ThemeProvider from "../../../app/theme-provider";
+import StoreProvider from "../../../app/StoreProvider";
+import { Planet } from "../PlanetCard/PlanetCard.model";
 
-const mockData = {
-  results: [
-    {
-      name: "mars",
-      diameter: "12",
-      gravity: "gravity",
-      orbital_period: "12",
-      population: "123",
-      rotation_period: "12",
-      surface_water: "water",
-      terrain: "terrain",
-    },
-  ],
-};
-const router = createMemoryRouter(
-  [
-    {
-      path: "/",
-      element: (
-        <ThemeContextProvider>
-          <Provider store={store}>
-            <PlanetInfo />
-          </Provider>
-        </ThemeContextProvider>
-      ),
-      loader: () => mockData,
-    },
-  ],
-  { initialEntries: ["/"] }
-);
+const mockData = [
+  {
+    name: "mars",
+    diameter: "12",
+    gravity: "gravity",
+    orbital_period: "12",
+    population: "123",
+    rotation_period: "12",
+    surface_water: "water",
+    terrain: "terrain",
+  },
+] as Planet[];
+
+vi.mock("next/navigation", async () => ({
+  ...(await vi.importActual("next/navigation")),
+  useRouter: () => ({
+    router: {},
+  }),
+}));
 describe("testing PlanetInfo", () => {
   it("should render PlanetInfo", async () => {
-    render(<RouterProvider router={router} />);
+    render(
+      <ThemeProvider>
+        <StoreProvider>
+          <PlanetInfo planetData={mockData} />
+        </StoreProvider>
+      </ThemeProvider>
+    );
     expect(screen.getByTestId("planetInfo")).toBeInTheDocument();
   });
 });
