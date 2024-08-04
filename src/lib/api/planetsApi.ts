@@ -12,11 +12,7 @@ export const planetsApi = createApi({
       query: ({ page = "", searchParam = "" }) =>
         `/?page=${page}&search=${searchParam}`,
     }),
-    getPlanetsBySearchParam: builder.query<PlanetsRequest, string>({
-      query: (searchParam) => `/?search=${searchParam}`,
-    }),
   }),
 });
 
-export const { useGetPlanetsQuery, useGetPlanetsBySearchParamQuery } =
-  planetsApi;
+export const { useGetPlanetsQuery } = planetsApi;
