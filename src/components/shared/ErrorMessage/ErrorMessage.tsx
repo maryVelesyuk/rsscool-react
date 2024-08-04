@@ -1,11 +1,17 @@
-import img from "../../../assets/error.gif";
+import Image from "next/image";
 import "./ErrorMessage.css";
 
 export const ErrorMessage = () => {
   return (
     <div className="error-wrapper" data-testid="errorMessage">
       <p>Something went wrong!</p>
-      <img src={img} alt="error" className="error" />
+      <Image
+        src={`/error.png`}
+        alt="Error"
+        width={350}
+        height={350}
+        objectFit="contain"
+      />
     </div>
   );
 };

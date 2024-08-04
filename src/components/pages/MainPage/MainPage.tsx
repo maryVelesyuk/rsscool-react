@@ -1,11 +1,6 @@
+"use client";
 import { ChangeEvent, useState, MouseEvent } from "react";
-import {
-  Button,
-  ErrorBoundary,
-  Input,
-  PlanetsList,
-  Switcher,
-} from "../../shared";
+import { Button, Input, PlanetsList, Switcher } from "../../shared";
 import styles from "./MainPage.module.css";
 import { Portal } from "../../shared/Portal";
 import { useThemeContext } from "../../../utils/useThemeContext";
@@ -40,11 +35,9 @@ export const MainPage = () => {
           <Switcher />
         </section>
 
-        <ErrorBoundary>
-          <section className={styles.content}>
-            <PlanetsList />
-          </section>
-        </ErrorBoundary>
+        <section className={styles.content}>
+          <PlanetsList />
+        </section>
       </div>
       <Portal />
     </>

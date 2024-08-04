@@ -1,4 +1,3 @@
-export { ErrorBoundary } from "./ErrorBoundary";
 export { Spinner } from "./Spinner";
 export { Input } from "./Input";
 export { Button } from "./Button";

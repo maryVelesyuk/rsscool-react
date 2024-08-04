@@ -1,29 +1,28 @@
+"use client";
+import { useRouter } from "next/navigation";
 import { useThemeContext } from "../../../utils/useThemeContext";
 import { Button } from "../Button";
 import { Planet } from "../PlanetCard/PlanetCard.model";
 import styles from "./PlanetInfo.module.css";
-import { useLoaderData, useNavigate } from "react-router-dom";
 
-export const PlanetInfo = () => {
-  const {
-    results: [
-      {
-        name,
-        diameter,
-        gravity,
-        orbital_period,
-        population,
-        rotation_period,
-        surface_water,
-        terrain,
-      },
-    ],
-  } = useLoaderData() as { results: Planet[] };
-  const navigate = useNavigate();
+export const PlanetInfo = ({ planetData }: { planetData: Planet[] }) => {
+  const router = useRouter();
   const { theme } = useThemeContext();
+  const [
+    {
+      name,
+      diameter,
+      gravity,
+      orbital_period,
+      population,
+      rotation_period,
+      surface_water,
+      terrain,
+    },
+  ] = planetData;
 
   const handleClick = () => {
-    navigate("/");
+    router.push("/");
   };
 
   return (
