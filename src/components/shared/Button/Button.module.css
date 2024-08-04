@@ -1,0 +1,20 @@
+.error {
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #f8f3f3de;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #9f0013;
+}
+.primary {
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #f8f3f3de;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: #5c5c5c;
+}
