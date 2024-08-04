@@ -4,10 +4,16 @@ import { render, screen } from "@testing-library/react";
 import StoreProvider from "../../../app/StoreProvider";
 import ThemeProvider from "../../../app/theme-provider";
 
-vi.mock("react-router-dom", async () => ({
+vi.mock("next/navigation", async () => ({
   ...(await vi.importActual("react-router-dom")),
-  useNavigation: () => ({
-    navigate: vi.fn(),
+  useRouter: () => ({
+    replace: vi.fn(),
+  }),
+  useSearchParams: () => ({
+    searchParams: "searchParams",
+  }),
+  usePathname: () => ({
+    pathname: "pathname",
   }),
 }));
 
