@@ -1,18 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type SliceState = {
-  selectedPage: number;
+  selectedPage: string;
 };
 
 const initialState: SliceState = {
-  selectedPage: 1,
+  selectedPage: "1",
 };
 
 const selectedPage = createSlice({
   name: "selectedPage",
   initialState,
   reducers: {
-    setPage(state, action: PayloadAction<number>) {
+    setPage(state, action: PayloadAction<string>) {
       state.selectedPage = action.payload;
     },
   },

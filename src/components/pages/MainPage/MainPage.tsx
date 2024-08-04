@@ -9,7 +9,8 @@ export const SEARCH_STR = "searchStr";
 export const PLANETS_DATA = "planets";
 
 export const MainPage = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [searchParam, setSearchParam] = useState<string>("");
   const { theme } = useThemeContext();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,11 +19,11 @@ export const MainPage = () => {
 
   const onSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setSearchParam(inputValue);
   };
 
   return (
     <>
-      {/* <Outlet /> */}
       <div
         className={`${styles.wrapper} ${theme === "light" ? styles.light : styles.dark}`}>
         <section className={styles.search}>
@@ -36,7 +37,7 @@ export const MainPage = () => {
         </section>
 
         <section className={styles.content}>
-          <PlanetsList />
+          <PlanetsList searchParam={searchParam} />
         </section>
       </div>
       <Portal />

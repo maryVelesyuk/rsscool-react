@@ -1,3 +1,4 @@
+"use client";
 import { FC, useState } from "react";
 import { Planet } from "../PlanetCard/PlanetCard.model";
 import { Button } from "../Button";

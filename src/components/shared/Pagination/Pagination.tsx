@@ -14,7 +14,7 @@ export const Pagination: FC<PaginationProps> = ({ planetsCount = 1 }) => {
   const dispatch = useAppDispatch();
   const { selectedPage } = useAppSelector((state) => state.selectedPage);
 
-  const onSelectedPageClick = (page: number) => {
+  const onSelectedPageClick = (page: string) => {
     dispatch(setPage(page));
   };
 
@@ -22,9 +22,11 @@ export const Pagination: FC<PaginationProps> = ({ planetsCount = 1 }) => {
     <div className={styles.wrapper}>
       {numbersArr.map((item) => (
         <div
-          className={selectedPage === item ? styles.active : styles.regular}
+          className={
+            selectedPage === String(item) ? styles.active : styles.regular
+          }
           key={item}
-          onClick={() => onSelectedPageClick(item)}>
+          onClick={() => onSelectedPageClick(String(item))}>
           {item}
         </div>
       ))}

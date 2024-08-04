@@ -7,13 +7,20 @@ import { Spinner } from "../Spinner";
 import { ErrorMessage } from "../ErrorMessage";
 import { useAppSelector } from "../../../lib/hooks";
 
-export const PlanetsList: FC = () => {
+interface PlanetsListProps {
+  searchParam: string;
+}
+
+export const PlanetsList: FC<PlanetsListProps> = ({ searchParam }) => {
   const { selectedPage } = useAppSelector((state) => state.selectedPage);
   const {
     data: planetsData,
     isError,
     isLoading,
-  } = useGetPlanetsQuery(selectedPage);
+  } = useGetPlanetsQuery({
+    page: searchParam ? "" : selectedPage,
+    searchParam: searchParam,
+  });
 
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorMessage />;
